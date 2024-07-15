@@ -1,0 +1,62 @@
+<html>
+
+<head>
+    <title>Arbori de intervale - Generator</title>
+    <link rel="stylesheet" href="../CSS/generator.css">
+
+</head>
+
+<body>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div class="banner">
+        <div class="navbar">
+            <div class="container flex">
+                <h1 class="logo"><img src="../PICTURES\logo.png" class="logo"></h1>
+                <nav>
+                    <ul>
+                        <li><a href="./index.html">Acasă</a></li>
+                        <li><a href="./teorie.html">Teorie</a></li>
+                        <li><a href="./generator.html">Generator</a></li>
+                        <li><a href="./aplicatii.html">Aplicații</a></li>
+                        <li><a href="./probleme.html">Probleme</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <canvas id="board" width="1900" height="800"></canvas>
+        <script src="../JS\desen.js"></script>
+        <div class="aintgen">
+            <div class="text-container">
+                Vector = <input type="text" class="textbox" id="nums">
+                <button class="linear-button" onclick="formdata()">Generează</button>
+            </div>
+        </div>
+        <div class="upd">
+            <br> <br>
+            <div class="text-container">
+                Update = <input type="text" class="querybox" id="upd">
+                <button class="linear-button" class="qr" onclick="makeupdate()">Actualizează</button>
+            </div>
+        </div>
+        <div class="ask">
+            <br> <br>
+            <div class="text-container">
+                Query = <input type="text" class="querybox" id="query">
+                <button class="linear-button" class="qr" onclick="makequery()">Întreabă</button>
+            </div>
+        </div>
+        <div class="getans">
+            <br> <br>
+            <div class="text-container">
+                Valoarea minimă din interval = <input type="text" class="ansbox" id="answer">
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <p>Lucrare realizată de Alin-Gabriel Răileanu și Andrei Boacă | Colegiul Național "Emil Racoviță" Iași</p>
+        </div>
+    </footer>
+</body>
+
+</html>

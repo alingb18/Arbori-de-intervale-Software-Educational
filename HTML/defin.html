@@ -1,0 +1,89 @@
+<html>
+
+<head>
+    <title>Arbori de intervale - Definire</title>
+    <link rel="stylesheet" href="../CSS/defin.css">
+</head>
+
+<body>
+    <nav>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <div class="banner">
+            <div class="navbar">
+                <div class="container flex">
+                    <h1 class="logo"><img src="../PICTURES\logo.png" class="logo"></h1>
+                    <nav>
+                        <ul>
+                            <li><a href="./index.html">Acasă</a></li>
+                            <li><a href="./teorie.html">Teorie</a></li>
+                            <li><a href="./generator.html">Generator</a></li>
+                            <li><a href="./aplicatii.html">Aplicații</a></li>
+                            <li><a href="./probleme.html">Probleme</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="content">
+        <p>Definire</p>
+        <p1>Ce este un arbore de intervale?</p1>
+        <div class="text-container">
+            <div class="box-content">
+                <text>Un arbore de intervale este un arbore binar în care fiecărui nod îi este asociat
+                răspunsul query-ului pentru
+                un anumit interval (vom numi acest interval "interval de acoperire"). Vom nota cu [L<sub>i</sub>, R<sub>i</sub>] intervalul de acoperire al nodului i. De
+                asemenea, vom nota cu
+                tata<sub>i</sub> părintele nodului i.</text>
+            </div>
+        </div>
+        <text> </text>
+        <div class="text-container">
+            <text>Vom atribui rădăcinii intervalul [1,N], iar pentru fiecare nod i diferit de rădăcină vom avea
+                două cazuri:</text>
+            <text>1.Dacă i este nodul din stânga al tatălui, atunci L<sub>i</sub> = L<sub>tata<sub>i</sub></sub>, R<sub>i</sub> = (L<sub>tata<sub>i</sub></sub> + R<sub>tata<sub>i</sub></sub>)/2. </text>
+            <text>2.Daca i este nodul din dreapta al tatălui, atunci L<sub>i</sub> = (L<sub>tata<sub>i</sub></sub> + R<sub>tata<sub>i</sub></sub>)/2 + 1, R<sub>i</sub> = R<sub>tata<sub>i</sub></sub>.</text>
+            <text>Observăm că fiecărui nod în afară de rădăcină îi este atribuit un interval de lungime egală cu
+            jumătate din lungimea intervalului atribuit tatălui său. Astfel, distanța de la rădăcină la orice alt nod este cel
+            mult log<sub>2</sub>(N). De asemenea, intervalele de lungime 1 se vor afla mereu în frunze.</text>
+        </div>
+        <text> </text>
+        <div class="text-container">
+            <text>În general arborii de intervale se rețin într-un vector.
+                <br> <br>
+                Pentru ușurință, vom nota cu poz<sub>node</sub> poziția nodului node în vector.
+                <br> <br>
+                Arborele fiind binar, poz<sub>rad</sub>=1 (unde rad este rădăcina arborelui), iar pentru orice alt nod din arbore: 
+                <br> <br> 1.Dacă i este nodul din stânga al tatalui, atunci poz<sub>i</sub>=2*poz<sub>tata<sub>i</sub></sub>
+                <br> <br> 2.Daca i este nodul din dreapta al tatalui, atunci poz<sub>i</sub>=2*poz<sub>tata<sub>i</sub></sub>+1. </text>
+        </div>
+        <text> </text>
+        <button class="linear-button" onclick="redirectToPage1()">Elemente introductive</button>
+        <button class="linear-button" onclick="redirectToPage2()">Enunț (problema clasică)</button>
+        <button class="linear-button" onclick="redirectToPage3()">Definire</button>
+        <button class="linear-button" onclick="redirectToPage4()">Funcțiile specifice</button>
+    </div>
+
+
+    <script>
+        function redirectToPage1() {
+            window.location.href = './el_introd.html';
+        }
+        function redirectToPage2() {
+            window.location.href = './prb_cls.html';
+        }
+        function redirectToPage3() {
+            window.location.href = './defin.html';
+        }
+        function redirectToPage4() {
+            window.location.href = './func_spec.html';
+        }
+    </script>
+    <footer>
+        <div class="footer-content">
+            <p>Lucrare realizată de Alin-Gabriel Răileanu și Andrei Boacă | Colegiul Național "Emil Racoviță" Iași</p>
+        </div>
+    </footer>
+</body>
+
+</html>

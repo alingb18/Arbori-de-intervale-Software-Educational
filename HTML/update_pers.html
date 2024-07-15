@@ -1,0 +1,92 @@
+<html>
+
+<head>
+    <title>Arbori de intervale - Build</title>
+    <link rel="stylesheet" href="../CSS/build.css">
+</head>
+
+<body>
+    <nav>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <div class="banner">
+            <div class="navbar">
+                <div class="container flex">
+                    <h1 class="logo"><img src="../PICTURES\logo.png" class="logo"></h1>
+                    <nav>
+                        <ul>
+                            <li><a href="./index.html">Acasă</a></li>
+                            <li><a href="./teorie.html">Teorie</a></li>
+                            <li><a href="./generator.html">Generator</a></li>
+                            <li><a href="./aplicatii.html">Aplicații</a></li>
+                            <li><a href="./probleme.html">Probleme</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="content">
+        <p></p>
+        <p1>Funcția Update (Arbori de intervale persistenți)</p1>
+        <div class="text-container">
+            <text>Ca introducere, de fiecare dată când se va actualiza o poziție, se vor schimba toate nodurile de pe lanțul de la rădăcină la frunza respectivă.</text>
+            <text>De aici rezultă că se vor modifica maxim log(N) noduri pentru fiecare versiune a structurii.</text>
+            <text>Acest aspect conferă și complexitatea în memorie a arborilor de intervale persistenți care va fi O(N+Q*log(N)), unde Q este numărul de operații de update.</text>
+            <text>La fel ca în cazul funcției Build, funcția Update funcționează aproape la fel ca în cazul structurii clasice, diferența fiind că de data
+                aceasta returnează adresa nodului creat.</text>
+            <text>Această mențiune implică faptul că adresa de memorie a nodului nu există în momentul apelului
+                funcției, deci nu vom putea reține acest parametru ca în cazul arborilor de intervale clasici.</text>
+            <text>Așadar, funcția va avea 4 parametri: {st, dr} care definesc intervalul de acoperire al nodului actual și {poz, val} care definesc actualizarea.</text>
+            <text>Pentru simplitate, la crearea nodului am folosit un constructor definit în struct.</text>
+            <text>Complexitate: O(log(N))</text>
+        </div>
+
+        <p1>Cod</p1>
+        <div class="text-container">
+
+            <pre><code class="language-cpp">
+        
+node* update(node* nod, int st, int dr, int poz, int val)
+{
+    if(st==dr) return new node(val);
+    int mij=(st+dr)/2;
+    if(poz&lt=mij) return new node(update(nod->l, st, mij, poz, val), nod->r);
+    else return new node(nod->l, update(nod->r, mij+1, dr, poz, val));
+}
+        
+                    </code></pre>
+        </div>
+
+        <text> </text>
+        <button class="linear-button1" onclick="redirectToPage2()">Structură</button>
+        <button class="linear-button1" onclick="redirectToPage3()">Funcția Build</button>
+        <button class="linear-button1" onclick="redirectToPage4()">Funcția Update (actualizare)</button>
+        <button class="linear-button1" onclick="redirectToPage5()">Funcția Query (interogare)</button>
+        <button class="linear-button1" onclick="redirectToPage6()">Probleme explicate</button>
+        
+        <script>
+            function redirectToPage2() {
+                window.location.href = './struct_pers.html';
+            }
+            function redirectToPage3() {
+                window.location.href = './build_pers.html';
+            }
+            function redirectToPage4() {
+                window.location.href = './update_pers.html';
+            }
+            function redirectToPage5() {
+                window.location.href = './query_pers.html';
+            }
+            function redirectToPage6() {
+                window.location.href = './prob_exp.html';
+            }
+        </script>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <p>Lucrare realizată de Alin-Gabriel Răileanu și Andrei Boacă | Colegiul Național "Emil Racoviță" Iași</p>
+        </div>
+    </footer>
+</body>
+
+</html>

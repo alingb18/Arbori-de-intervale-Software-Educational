@@ -1,0 +1,86 @@
+<html>
+
+<head>
+    <title>Arbori de intervale - Manual de utilizare</title>
+    <link rel="stylesheet" href="../CSS/man_util.css">
+</head>
+
+<body>
+    <nav>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <div class="banner">
+            <div class="navbar">
+                <div class="container flex">
+                    <h1 class="logo"><img src="../PICTURES\logo.png" class="logo"></h1>
+                    <nav>
+                        <ul>
+                            <li><a href="./index.html">Acasă</a></li>
+                            <li><a href="./teorie.html">Teorie</a></li>
+                            <li><a href="./generator.html">Generator</a></li>
+                            <li><a href="./aplicatii.html">Aplicații</a></li>
+                            <li><a href="./probleme.html">Probleme</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="content">
+        <p></p>
+        <p1>Manual de utilizare - Generator</p1>
+        <div class="text-container">
+            <text>Pagina "Generator" are ca scop fixarea mai bună a informațiilor, oferind o imagine asupra structurii de date.
+                <br> <br> 
+                Mai jos sunt prezentate funcțiile de query și update, aplicate pe valori alese de utilizator.
+                <br> <br>
+                Pentru a vedea animațiile trebuie completate 3 secțiuni.
+                <br> <br>
+                Prima dintre ele este "Vector", iar sintaxa pentru acestă secțiune este următoarea, cu următoarele mențiuni:
+                <br> 
+                1. Sintaxa: a[1],a[2],a[3],...,a[n] 
+                <br> 
+                2. n trebuie să fie mai mic sau egal cu 8
+                <br> 
+                3. a[i] (1 ≤ i ≤ n) este al i-lea element din vector și poate lua orice valoare naturală între 1 și 9999999
+                <br> 
+                4. caracterele se vor scrie unul lângă altul, fără spații între ele
+                <br> 
+                5. exemplu de sintaxă: Vector = 1,45,29,38,10921,5 (se observă că n-ul nu trebuie transmis).
+                <br> <br>
+                A doua secțiune este "Query", iar sintaxa pentru acestă secțiune este următoarea, cu următoarele mențiuni:
+                <br> 
+                1. Sintaxa: L,R
+                <br> 
+                2. (1 ≤ L ≤ R ≤ n)
+                <br> 
+                3. caracterele se vor scrie unul lângă altul, fără spații între ele
+                <br> 
+                4. exemplu de sintaxă: Query = 3,5 .
+                <br> <br>
+                A treia secțiune este "Update", iar sintaxa pentru acestă secțiune este următoarea, cu următoarele mențiuni:
+                <br> 
+                1. Sintaxa: poz,val
+                <br> 
+                2. (1 ≤ poz ≤ n) (val este un număr între 1 și 9999999)
+                <br> 
+                3. caracterele se vor scrie unul lângă altul, fără spații între ele
+                <br> 
+                4. exemplu de sintaxă: Update = 4,3567 .</text>
+        </div>
+        <text> </text>
+        <button class="linear-button1" onclick="redirectToPage1()">Înapoi</button>
+
+        <script>
+            function redirectToPage1() {
+                window.location.href = './generator.html';
+            }
+        </script>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <p>Lucrare realizată de Alin-Gabriel Răileanu și Andrei Boacă | Colegiul Național "Emil Racoviță" Iași</p>
+        </div>
+    </footer>
+</body>
+
+</html>

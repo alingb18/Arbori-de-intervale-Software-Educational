@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        #myElement {
+            position: absolute;
+            /* Poate fi relative, fixed sau sticky, în funcție de context */
+            top: 50px;
+            left: 50px;
+            width: 100px;
+            height: 100px;
+            background-color: lightblue;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="myElement">Mută-mă!</div>
+
+    <button onclick="moveElement()">Mută Elementul</button>
+
+    <script>
+        function moveElement() {
+            // Selectează elementul
+            var element = document.getElementById("myElement");
+
+            // Setează noile valori pentru top și left
+            element.style.top = "100px";
+            element.style.left = "200px";
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,110 @@
+<html>
+
+<head>
+    <title>Arbori de intervale - Build</title>
+    <link rel="stylesheet" href="../CSS/build.css">
+</head>
+
+<body>
+    <nav>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <div class="banner">
+            <div class="navbar">
+                <div class="container flex">
+                    <h1 class="logo"><img src="../PICTURES\logo.png" class="logo"></h1>
+                    <nav>
+                        <ul>
+                            <li><a href="./index.html">Acasă</a></li>
+                            <li><a href="./teorie.html">Teorie</a></li>
+                            <li><a href="./generator.html">Generator</a></li>
+                            <li><a href="./aplicatii.html">Aplicații</a></li>
+                            <li><a href="./probleme.html">Probleme</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="content">
+        <p></p>
+        <p1>Structura Arborilor de intervale persistenți</p1>
+        <div class="text-container">
+            <text>Arborii de intervale persistenți au în spate structura clasică de arbori de intervale.</text>
+            <text>Diferența este dată de modul în care aceștia sunt stocați, anume prin pointeri. Acest fapt crează flexibilitate mai mare în implementare.</text>
+            <text>Astfel, vom reține un struct cu 3 câmpuri: valoarea din nod, adresa fiului din stânga și adresa fiului din dreapta.</text>
+            <text>Totodată, vom reține un vector de rădăcini, iar la fiecare nouă versiune, vom actualiza pointer-ul reținut la poziția anterioară din vector.</text>
+        </div>
+
+        <p1>Cod - Structură</p1>
+        <div class="text-container">
+        
+            <pre><code class="language-cpp">
+        
+struct node
+{
+    int val;
+    node *l, *r;
+    node(int x): val(x), l(NULL), r(NULL) {};
+    node(node *ll, node* rr)
+    {
+        l=ll;
+        r=rr;
+        val=0;
+        if(l) val+=l->val;
+        if(r) val+=r->val;
+    }
+    node(node *c): val(c->val), l(c->l), r(c->r) {};
+} *roots[NMAX];
+        
+                    </code></pre>
+        </div>
+
+        <p1>Cod - Apelare</p1>
+        <div class="text-container">
+        
+            <pre><code class="language-cpp">
+            
+roots[0]=new node(0);
+roots[0]=build(1, n);
+for(i=1; i<=nr_op; i++)
+{
+    roots[i]=new node(roots[i-1]);
+    roots[i]=update(roots[i], 1, n, poz, 1);
+}
+                
+            </code></pre>
+        </div>
+
+        <text> </text>
+        <button class="linear-button1" onclick="redirectToPage2()">Structură</button>
+        <button class="linear-button1" onclick="redirectToPage3()">Funcția Build</button>
+        <button class="linear-button1" onclick="redirectToPage4()">Funcția Update (actualizare)</button>
+        <button class="linear-button1" onclick="redirectToPage5()">Funcția Query (interogare)</button>
+        <button class="linear-button1" onclick="redirectToPage6()">Probleme explicate</button>
+        
+        <script>
+            function redirectToPage2() {
+                window.location.href = './struct_pers.html';
+            }
+            function redirectToPage3() {
+                window.location.href = './build_pers.html';
+            }
+            function redirectToPage4() {
+                window.location.href = './update_pers.html';
+            }
+            function redirectToPage5() {
+                window.location.href = './query_pers.html';
+            }
+            function redirectToPage6() {
+                window.location.href = './prob_exp.html';
+            }
+        </script>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <p>Lucrare realizată de Alin-Gabriel Răileanu și Andrei Boacă | Colegiul Național "Emil Racoviță" Iași</p>
+        </div>
+    </footer>
+</body>
+
+</html>

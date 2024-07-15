@@ -1,0 +1,191 @@
+<html>
+
+<head>
+    <title>Arbori de intervale - Maxq</title>
+    <link rel="stylesheet" href="../CSS/maxq.css">
+</head>
+
+<body>
+    <nav>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <div class="banner">
+            <div class="navbar">
+                <div class="container flex">
+                    <h1 class="logo"><img src="../PICTURES\logo.png" class="logo"></h1>
+                    <nav>
+                        <ul>
+                            <li><a href="./index.html">Acasă</a></li>
+                            <li><a href="./teorie.html">Teorie</a></li>
+                            <li><a href="./generator.html">Generator</a></li>
+                            <li><a href="./aplicatii.html">Aplicații</a></li>
+                            <li><a href="./probleme.html">Probleme</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="content">
+        <p>Problema Maxq (ONI 2007 - clasele 11-12)</p>
+        <p1>Enunț</p1>
+        <div class="text-container">
+            <text>Johnie a început să se joace cu un vector de numere. El dispune inițial de un vector V cu N numere întregi (numerotate de la 0 la N-1) și poate efectua următoatele operații:</text>
+
+            <text>1. schimbarea elementului de pe poziția p cu un alt număr întreg;</text>
+            <text>2. aflarea subsecvenței de sumă maximă din V inclusă între indicii a și b;</text>
+        </div>
+        <p1>Cerință</p1>
+        <div class="text-container">
+            <text>Ajutaţi-l pe Johnie să efectueze repede operaţiile de mai sus</text>
+        </div>
+
+
+
+        <p1>Utilizarea arborilor de intervale în această problemă</p1>
+        <div class="text-container">
+            <text>Am ales această problemă pentru a exemplifica faptul că arborii de intervale nu funcționează doar pentru operații
+            precum: sumă, maxim, minim, etc; ci funcționează și pentru operații "custom". </text>
+            <text>Pentru a rezolva această problemă, inițial, trebuie să urmărim comportamentul răspunsului atunci când încercăm să unim 2
+            intervale vecine (A și B).</text>
+            <text>Observații:</text>
+            <text>1. Subsecvența de sumă maximă se va putea găsi unită de unul din capete sau undeva "prin" interval (fără obligația să
+            fie unită de unul din capete).</text>
+            <text>2. Subsecvența de sumă maximă din capătul din stânga va fi ori subsecvența de sumă maximă din capătul din stânga al
+            intervalului A, ori tot intervalul A reunit cu subsecvența din capătul din stânga al intervalului B, iar pentru capătul
+            din dreapta va fi ori subsecvența de sumă maximă din capătul din dreapta al intervalului B, ori tot intervalul B reunit
+            cu subsecvența din capătul din dreapta al intervalului A. </text>
+            <text>3. Lasând la o parte subsecvențele din capete, mai avem doar 3 alte subsecvențe care pot contribui la răspuns:
+            subsecvența formată din reuniunea celei din capătul din dreapta al intervalului A și a celei din capătul din stânga al
+            intervalului B sau una dintre subsecvențele care este răspuns pentru intervalul A sau pentru intervalul B. </text>
+            <text>Aceste observații ne spun că având calculate datele pentru 2 intervale vecine, vom putea calcula datele și pentru
+            reuniunea lor. => putem utiliza Arbori de intervale </text>
+            <text>Pentru rezolvarea acestei probleme, arborele de intervale nu va fi de tipul int, ci este necesară formarea unui struct
+            cu 4 câmpuri:</text>
+            <text>1. st (subsecvența de sumă maximă unită de capătul din stânga)</text>
+            <text>2. dr (subsecvența de sumă maximă unită de capătul din dreapta)</text>
+            <text>3. in (suma elementelor din interval)</text>
+            <text>4. ans (subsecvența de sumă maximă din interval).</text>
+            <text>Așa cum arborele nu este de un tip clasic, nici operația nu va fi una clasică.
+            Pentru unirea informațiilor din fiii unui nod este necesară implementarea unei funcții de combinare ce va utiliza
+            informațiile precizate mai sus.</text>
+            <text>Cum funcția de combinare are complexitate O(1), complexitate programului va fi O(Q*log(N)), unde Q este numărul de
+            operații.</text>
+
+        </div>
+        <text1> </text1>
+        <p1>Cod</p1>
+        <div class="text-container">
+
+            <pre><code class="language-cpp">
+//Sursa 100 pct, Maxq, Raileanu Alin-Gabriel
+#include &ltfstream&gt
+const int NMAX=250005;
+#define int long long
+
+using namespace std;
+ifstream fin("maxq.in");
+ofstream fout("maxq.out");
+
+struct AINT
+{
+    int st, dr, in, ans;
+} aint[4*NMAX];
+
+void build(int, int, int);
+void update(int, int, int, int, int);
+AINT query(int, int, int, int, int);
+AINT combine(AINT, AINT);
+void init(AINT&, int);
+
+int v[NMAX], n, q;
+
+signed main()
+{
+    int i, a, b, tip;
+    fin>>n;
+    for(i=1; i<=n; i++) fin>>v[i];
+    build(1, 1, n);
+    fin>>q;
+    for(i=1; i<=q; i++)
+    {
+        fin>>tip>>a>>b;
+        a++;
+        if(tip==0) update(1, 1, n, a, b);
+        else
+        {
+            b++;
+            fout&lt&ltquery(1, 1, n, a, b).ans&lt&lt'\n';
+        }
+    }
+    return 0;
+}
+
+void build(int nod, int st, int dr)
+{
+    if(st==dr)
+    {
+        init(aint[nod], v[st]);
+        return;
+    }
+    int mij=(st+dr)/2;
+    build(2*nod, st, mij);
+    build(2*nod+1, mij+1, dr);
+    aint[nod]=combine(aint[2*nod], aint[2*nod+1]);
+}
+
+void update(int nod, int st, int dr, int poz, int val)
+{
+    if(st==dr)
+    {
+        init(aint[nod], val);
+        return;
+    }
+    int mij=(st+dr)/2;
+    if(poz<=mij) update(2*nod, st, mij, poz, val);
+    else update(2*nod+1, mij+1, dr, poz, val);
+    aint[nod]=combine(aint[2*nod], aint[2*nod+1]);
+}
+
+AINT query(int nod, int st, int dr, int qst, int qdr)
+{
+    if(qst<=st && qdr>=dr) return aint[nod];
+    int mij=(st+dr)/2;
+    AINT vl={0, 0, 0, 0}, vr={0, 0, 0, 0};
+    if(qst<=mij) vl=query(2*nod, st, mij, qst, qdr);
+    if(qdr>mij) vr=query(2*nod+1, mij+1, dr, qst, qdr);
+    return combine(vl, vr);
+}
+
+AINT combine(AINT a, AINT b)
+{
+    AINT rez;
+    rez.st=max(a.st, a.in+b.st);
+    rez.dr=max(b.dr, a.dr+b.in);
+    rez.in=a.in+b.in;
+    rez.ans=max(a.dr+b.st, max(a.ans, b.ans));
+    return rez;
+}
+
+void init(AINT& a, int val)
+{
+    a.st=a.dr=a.in=a.ans=val;
+}
+
+            </code></pre>
+        </div>
+        <text> </text>
+        <button class="linear-button" onclick="redirectToPage1()">Înapoi</button>
+        <script>
+            function redirectToPage1() {
+                    window.location.href = './aplicatii.html';
+                }
+        </script>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <p>Lucrare realizată de Alin-Gabriel Răileanu și Andrei Boacă | Colegiul Național "Emil Racoviță" Iași</p>
+        </div>
+    </footer>
+</body>
+
+</html>

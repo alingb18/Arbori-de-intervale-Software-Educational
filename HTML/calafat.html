@@ -1,0 +1,148 @@
+<html>
+
+<head>
+    <title>Arbori de intervale - Calafat</title>
+    <link rel="stylesheet" href="../CSS/calafat.css">
+</head>
+
+<body>
+    <nav>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <div class="banner">
+            <div class="navbar">
+                <div class="container flex">
+                    <h1 class="logo"><img src="../PICTURES\logo.png" class="logo"></h1>
+                    <nav>
+                        <ul>
+                            <li><a href="./index.html">Acasă</a></li>
+                            <li><a href="./teorie.html">Teorie</a></li>
+                            <li><a href="./generator.html">Generator</a></li>
+                            <li><a href="./aplicatii.html">Aplicații</a></li>
+                            <li><a href="./probleme.html">Probleme</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="content">
+        <p>Problema Calafat (ONI 2016 - clasele 11-12)</p>
+        <p1>Enunț</p1>
+        <div class="text-container">
+            <text>Această problemă se numește Calafat pentru că a fost compusă în timpul excursiei la Calafat de mâine.</text>
+        </div>
+        <p1>Cerință</p1>
+        <div class="text-container">
+            <text>Se dă un șir A format din N numere naturale. Pentru fiecare valoare distinctă dintr-o subsecvență cuprinsă între 2 indici
+            st si dr considerăm distanța dintre indicii primei și ultimei apariții ale acesteia în cadrul subsecvenței. Dându-se M
+            subsecvențe de forma [st, dr], se cere să se calculeze suma distanțelor corespunzătoare tuturor valorilor distincte din
+            subsecvență.</text>
+        </div>
+
+
+
+        <p1>Utilizarea arborilor de intervale în această problemă</p1>
+        <div class="text-container">
+            <text>Am ales această problemă pentru a arăta cum o problemă care pare complet în afara subiectului se poate reduce la arbori de intervale.</text>
+            <text>În primul rând, nu vom răspunde la query-uri în ordinea din input, ci le vom reține în modul următor:</text>
+            <text>1. Vom reține un vector de vectori alocați dinamic numit "v".</text>
+            <text>2. Pentru al i-lea query st[i] dr[i] (1 ≤ i ≤ Q), vom adăuga la vectorul v[dr[i]] perechea {st[i], i}.</text>
+            <text>În al doilea rând, acest trick ne permite procesarea elementelor în ordinea din vector.</text>
+            <text>Acest aspect ne duce cu gândul și la a 2-a "schemă" pe care o putem face. Anume, în loc să reținem diferența dintre prima și ultima apariție pentru fiecare număr, putem să reținem suma diferențelor dintre oricare 2 apariții consecutive.</text>
+            <text>Astfel vom parcurge vectorul de la 1 la N, aplicând următoarele:</text>
+            <text>1. Pentru simplitate, vom memora în f[A[i]] ultima apariție a valorii A[i] în vector.</text>
+            <text>2. Vom adăuga noua apariție a valorii A[i] în structura de date, iar după vom schimba valoarea f[A[i]]. </text>
+            <text>3. Vom rezolva toate query-urile reținute în v[i].</text>
+            <text>Arborele de intervale va fi de tip sumă, iar în continuare vom explica utilizarea acestuia.</text>
+            <text>Când ne aflăm la indicele i în parcurgere:</text>
+            <text>1. Pentru a adăuga valoarea A[i] în structură, vom da update la poziția i cu diferența dintre i și f[A[i]].</text>
+            <text>2. Pentru a răspunde query-urilor vom reține un vector "ans", iar pentru query-urile din v[i] reținute sub forma {st, indice}, vom pune în ans[indice] valoarea query-ului de pe intervalul [st, i]. Acest aspect ne garantează formarea răspunsului corect, datorită parcurgerii query-urilor în ordinea crescătoare a capătului dreapta.</text>
+            <text>În final vom afișa răspunsurile folosind datele din vectorul "ans".</text>
+            <text>Complexitatea va fi O((N+Q)*log(n)).</text>
+
+        </div>
+        <text1> </text1>
+        <p1>Cod</p1>
+        <div class="text-container">
+
+            <pre><code class="language-cpp">
+//Sursa 100 pct, Calafat, Raileanu Alin-Gabriel
+#include &ltfstream&gt
+#include &ltvector&gt
+#pragma GCC optimize("unroll-loops")
+#pragma GCC target("avx2")
+const int NMAX=200005;
+
+using namespace std;
+ifstream cin("calafat.in");
+ofstream cout("calafat.out");
+
+void update(int, int, int, int, int);
+long long query(int, int, int, int, int);
+
+int a[NMAX], f[NMAX];
+long long aint[4*NMAX], ans[NMAX];
+vector &ltpair&ltint, int>> v[NMAX];
+int n, q;
+
+signed main()
+{
+    int i, st, dr;
+    cin>>n>>q;
+    for(i=1; i<=n; i++) cin>>a[i];
+    for(i=1; i<=q; i++)
+    {
+        cin>>st>>dr;
+        v[dr].push_back({st, i});
+    }
+    for(i=1; i<=n; i++)
+    {
+        if(f[a[i]]) update(1, 1, n, f[a[i]], i-f[a[i]]);
+        f[a[i]]=i;
+        for(auto j:v[i]) ans[j.second]=query(1, 1, n, j.first, i);
+    }
+    for(i=1; i<=q; i++) cout&lt&ltans[i]&lt&lt'\n';
+    return 0;
+}
+
+void update(int nod, int st, int dr, int poz, int val)
+{
+    if(st==dr)
+    {
+        aint[nod]+=val;
+        return;
+    }
+    int mij=(st+dr)/2;
+    if(poz<=mij) update(2*nod, st, mij, poz, val);
+    else update(2*nod+1, mij+1, dr, poz, val);
+    aint[nod]=aint[2*nod]+aint[2*nod+1];
+}
+
+long long query(int nod, int st, int dr, int qst, int qdr)
+{
+    if(qst<=st && dr<=qdr) return aint[nod];
+    int mij=(st+dr)/2;
+    long long sum=0;
+    if(qst<=mij) sum+=query(2*nod, st, mij, qst, qdr);
+    if(mij&ltqdr) sum+=query(2*nod+1, mij+1, dr, qst, qdr);
+    return sum;
+}
+
+            </code></pre>
+        </div>
+        <text> </text>
+        <button class="linear-button" onclick="redirectToPage1()">Înapoi</button>
+        <script>
+            function redirectToPage1() {
+                window.location.href = './aplicatii.html';
+            }
+        </script>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <p>Lucrare realizată de Alin-Gabriel Răileanu și Andrei Boacă | Colegiul Național "Emil Racoviță" Iași</p>
+        </div>
+    </footer>
+</body>
+
+</html>

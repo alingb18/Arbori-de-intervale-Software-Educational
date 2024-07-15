@@ -1,0 +1,112 @@
+<html>
+
+<head>
+    <title>Arbori de intervale - Update</title>
+    <link rel="stylesheet" href="../CSS/update.css">
+</head>
+
+<body>
+    <nav>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <div class="banner">
+            <div class="navbar">
+                <div class="container flex">
+                    <h1 class="logo"><img src="../PICTURES\logo.png" class="logo"></h1>
+                    <nav>
+                        <ul>
+                            <li><a href="./index.html">Acasă</a></li>
+                            <li><a href="./teorie.html">Teorie</a></li>
+                            <li><a href="./generator.html">Generator</a></li>
+                            <li><a href="./aplicatii.html">Aplicații</a></li>
+                            <li><a href="./probleme.html">Probleme</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="content">
+        <p></p>
+        <p1>Update</p1>
+        <div class="text-container">
+            <text>Funcția "update" (actualizare) are ca scop modificarea valorii unei poziții din vector și a tuturor nodurilor
+            din arborele de intervale care conțin acea poziție în intervalul de acoperire.
+            <br> <br>
+            Funcția va avea 5 parametri (nod, L<sub>nod</sub>, R<sub>nod</sub>, poz, val) (unde poz este poziția din vector, iar val este noua
+            valoare).
+            <br> <br>
+            Vom coborî în arborele de intervale până în frunza specifică poziției date, alegând la fiecare pas "deplasarea" către
+            nodul care conține poziția în intervalul său.
+            <br> <br>
+            Când ajungem în frunză modificăm informația, apoi similar funcției "build", valoarea fiecărui nod va fi combinația valorilor fiilor săi.
+            <br> <br>
+            Astfel va fi parcurs doar lanțul dintre frunză și rădăcină care conține log<sub>2</sub>(N) noduri, aspect care dă și complexitatea
+            funcției de O(log(N)).</text>
+        </div>
+        <text1> </text1>
+        <p1>Cod</p1>
+        <div class="text-container">
+
+            <pre><code class="language-cpp">
+
+void update(int nod, int st, int dr, int poz, int val)
+{
+    if(st==dr)
+    {
+        aint[nod]=val;
+        return;
+    }
+    int mij=(st+dr)/2;
+    if(poz<=mij) update(2*nod, st, mij, poz, val);
+    else update(2*nod+1, mij+1, dr, poz, val);
+    aint[nod]=max(aint[2*nod], aint[2*nod+1]);
+}
+
+            </code></pre>
+        </div>
+        <text> </text>
+        <button class="linear-button1" onclick="redirectToPage5()">Build</button>
+        <button class="linear-button1" onclick="redirectToPage6()">Update (actualizare)</button>
+        <button class="linear-button1" onclick="redirectToPage7()">Query (interogare)</button>
+        <button class="linear-button1" onclick="redirectToPage8()">Lazy update</button>
+        <text> </text>
+        <button class="linear-button" onclick="redirectToPage1()">Elemente introductive</button>
+        <button class="linear-button" onclick="redirectToPage2()">Enunț (problema clasică)</button>
+        <button class="linear-button" onclick="redirectToPage3()">Definire</button>
+        <button class="linear-button" onclick="redirectToPage4()">Funcțiile specifice</button>
+
+        <script>
+            function redirectToPage1() {
+                window.location.href = './el_introd.html';
+            }
+            function redirectToPage2() {
+                window.location.href = './prb_cls.html';
+            }
+            function redirectToPage3() {
+                window.location.href = './defin.html';
+            }
+            function redirectToPage4() {
+                window.location.href = './func_spec.html';
+            }
+            function redirectToPage5() {
+                window.location.href = './build.html';
+            }
+            function redirectToPage6() {
+                window.location.href = './update.html';
+            }
+            function redirectToPage7() {
+                window.location.href = './query.html';
+            }
+            function redirectToPage8() {
+                window.location.href = './lazy_update.html';
+            }
+        </script>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <p>Lucrare realizată de Alin-Gabriel Răileanu și Andrei Boacă | Colegiul Național "Emil Racoviță" Iași</p>
+        </div>
+    </footer>
+</body>
+
+</html>

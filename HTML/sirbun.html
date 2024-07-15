@@ -1,0 +1,195 @@
+<html>
+
+<head>
+    <title>Arbori de intervale - Sirbun</title>
+    <link rel="stylesheet" href="../CSS/sirbun.css">
+</head>
+
+<body>
+    <nav>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <div class="banner">
+            <div class="navbar">
+                <div class="container flex">
+                    <h1 class="logo"><img src="../PICTURES\logo.png" class="logo"></h1>
+                    <nav>
+                        <ul>
+                            <li><a href="./index.html">Acasă</a></li>
+                            <li><a href="./teorie.html">Teorie</a></li>
+                            <li><a href="./generator.html">Generator</a></li>
+                            <li><a href="./aplicatii.html">Aplicații</a></li>
+                            <li><a href="./probleme.html">Probleme</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="content">
+        <p>Problema SirBun (Baraj ONI 2023 - ziua 1)</p>
+        <p1>Enunț</p1>
+        <div class="text-container">
+            <text>Un străbun get, Ziraxes, le-a dat dacilor liberi să rezolve o problemă de programare, aceasta fiind o activitate mai
+            plăcută decât să care bolovani, pietricele şi nisip. Legenda spune că asupra elementelor unui şir A de numere naturale
+            nenule mai mici sau egale cu 100.000 se poate efectua următoarea operaţie:</text>
+            <text>Se alege un element A[i] din şir şi un număr natural x şi se scade x din Ai, deci Ai devine A[i] - x.</text>
+            
+            <text>Şirul A se numeşte bun dacă aplicând operaţia de oricâte ori, elementele şirului A devin numere naturale nenule
+                distincte. De exemplu, şirul 2, 3, 3, 5 este bun deoarece scăzând 2 din al doilea element el devine 2, 1, 3, 5 şi
+                are
+                elementele distincte, iar şirul 2, 2, 7, 2, 4 nu este bun.</text>
+        </div>
+        <p1>Cerință</p1>
+        <div class="text-container">
+            <text>Fiind dat un şir A format cu N elemente numere naturale nenule, determinaţi numărul subsecvenţelor din şir care
+                sunt
+                şiruri bune. O subsecvenţă a şirului este formată din elemente din şir aflate pe poziţii consecutive.</text>
+        </div>
+        
+        
+
+        <p1>Utilizarea arborilor de intervale în această problemă</p1>
+        <div class="text-container">
+        <text1>O subproblemă a acestei probleme se poate formula în modul următor:</text1>
+        <text1>Având un multi-set de numere inițial gol, să se proceseze 2 operații:</text1>
+        <text1>1. Să se adauge în multi-set numărul x.</text1>
+        <text1>2. Definim nr(i) numărul de numere mai mici sau egale cu i care există în multi-set. Să se spună dacă există un i (1 ≤ i ≤ 100.000) pentru care nr(i)>i.</text1>
+        </div>
+        <text1> </text1>
+        <div class="text-container">
+        <text1>Pentru a rezolva această problema se poate utiliza un arbore de intervale, împreună cu tehnica "lazy update".</text1>
+        <text1>Vom reține un arbore de intervale care va acoperi intervalul de numere [1, 100.000].</text1>
+        <text1>Dacă un nod din arbore definește intervalul [a, b], atunci informația pe care o vom reține în acesta este "minimul diferenței dintre i și nr(i) (a ≤ i ≤ b)".</text1>
+        </div>
+        <text1> </text1>
+        <div class="text-container">
+        <text1>Acum că am stabilit ce urmează să facem cu arborele de intervale, trebuie să explicăm utilizarea acestuia.</text1>
+        <text1>În funcția build() vom inițializa fiecare nod care definește un interval de forma [a, a] cu valoarea a, deoarece inițial nr(i) va fi egal cu 0.</text1>
+        <text1>Observăm că dacă facem acest trick, atunci când adăugăm un număr x în multi-set, tot ce trebuie să facem este sa dăm update cu
+        valoarea -1 pe intervalul [x, 100.000], deoarece diferența dintre i și nr(i) va scădea cu 1 pentru fiecare i din acest
+        interval.</text1>
+        </div>
+        <text1> </text1>
+        <div class="text-container">
+        <text1>Funcțiile pentru arborele de intervale se pot implementa similar cu cele prezentate în pagina de teorie.</text1>
+        <text1>Așadar, când avem o operație de tipul 1, tot ce trebuie să facem este să updatăm intervalul [x, 100.000] cu -1, iar
+        pentru o operație de tipul 2 trebuie să verificăm dacă minimul de pe intervalul [1, 100.000] este mai mare sau egal cu
+        0.</text1>
+        <text1>Pentru a rezolva operațiile de tipul 2 există 2 metode în formula prezentată:</text1>
+        <text1>1. query(1, 100.000)>=0</text1>
+        <text1>2. După cum știm, nodul cu numărul 1 din arborele de intervale (rădăcina) reține informații despre intervalul complet,
+        în cazul nostru [1, 100.000]. Așadar nu este necesară implementarea funcției de query, pentru că mereu informațiile de
+        care avem nevoie în problemă se vor găsi în nodul 1.</text1>
+        <text1>În mod cert, dacă generalizam problema iar pentru operația de tipul 2 se va da un interval custom, implementarea
+        operației de query devine inevitabilă.</text1>
+        </div>
+        <text1> </text1>
+        <p1>Cod</p1>
+        <div class="text-container">
+
+            <pre><code class="language-cpp">
+//Sursa 100 pct, Sirbun, Raileanu Alin-Gabriel
+#include &ltfstream&gt
+#define int long long
+const int NMAX=1e5+5;
+
+using namespace std;
+ifstream fin("sirbun.in");
+ofstream fout("sirbun.out");
+
+void build(int, int, int);
+void update(int, int, int, int, int, int);
+int get_val(int);
+void prop(int, int, int);
+
+struct aint_lazy
+{
+    int minim, lazy;
+} aint[4*NMAX];
+
+int a[NMAX];
+int n, ans;
+
+signed main()
+{
+    int i, st, dr;
+    fin>>n;
+    for(i=1; i<=n; i++) fin>>a[i];
+    build(1, 1, n);
+    for(st=1, dr=0; st<=n; st++)
+    {
+        while(dr<=n && aint[1].minim>=0)
+        {
+            dr++;
+            update(1, 1, n, a[dr], n, -1);
+        }
+        ans+=dr-st;
+        update(1, 1, n, a[st], n, 1);
+    }
+    fout&lt;&lt;ans&lt;&lt;'\n';
+    return 0;
+}
+
+void build(int nod, int st, int dr)
+{
+    if(st==dr)
+    {
+        aint[nod].minim=st;
+        aint[nod].lazy=0;
+        return;
+    }
+    int mij=(st+dr)/2;
+    build(2*nod, st, mij);
+    build(2*nod+1, mij+1, dr);
+    aint[nod].minim=min(aint[2*nod].minim, aint[2*nod+1].minim);
+}
+
+void update(int nod, int st, int dr, int ust, int udr, int val)
+{
+    prop(nod, st, dr);
+    if(st>=ust && dr<=udr)
+    {
+        aint[nod].lazy+=val;
+        prop(nod, st, dr);
+        return;
+    }
+    int mij=(st+dr)/2;
+    if(ust<=mij) update(2*nod, st, mij, ust, udr, val);
+    if(mij+1<=udr) update(2*nod+1, mij+1, dr, ust, udr, val);
+    aint[nod].minim=min(get_val(2*nod), get_val(2*nod+1));
+}
+
+void prop(int nod, int st, int dr)
+{
+    if(st!=dr)
+    {
+        aint[2*nod].lazy+=aint[nod].lazy;
+        aint[2*nod+1].lazy+=aint[nod].lazy;
+    }
+    aint[nod].minim+=aint[nod].lazy;
+    aint[nod].lazy=0;
+}
+
+int get_val(int nod)
+{
+    return aint[nod].minim+aint[nod].lazy;
+}
+
+            </code></pre>
+        </div>
+        <text> </text>
+        <button class="linear-button" onclick="redirectToPage1()">Înapoi</button>
+        <script>
+            function redirectToPage1() {
+                window.location.href = './aplicatii.html';
+            }
+        </script>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <p>Lucrare realizată de Alin-Gabriel Răileanu și Andrei Boacă | Colegiul Național "Emil Racoviță" Iași</p>
+        </div>
+    </footer>
+</body>
+
+</html>

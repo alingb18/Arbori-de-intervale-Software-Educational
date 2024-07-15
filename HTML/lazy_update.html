@@ -1,0 +1,153 @@
+<html>
+
+<head>
+    <title>Arbori de intervale - Lazy update</title>
+    <link rel="stylesheet" href="../CSS/lazy_update.css">
+</head>
+
+<body>
+    <nav>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <div class="banner">
+            <div class="navbar">
+                <div class="container flex">
+                    <h1 class="logo"><img src="../PICTURES\logo.png" class="logo"></h1>
+                    <nav>
+                        <ul>
+                            <li><a href="./index.html">Acasă</a></li>
+                            <li><a href="./teorie.html">Teorie</a></li>
+                            <li><a href="./generator.html">Generator</a></li>
+                            <li><a href="./aplicatii.html">Aplicații</a></li>
+                            <li><a href="./probleme.html">Probleme</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="content">
+        <p></p>
+        <p1>Lazy update</p1>
+        <div class="text-container">
+            <text>Funcția "lazy update" are ca scop actualizarea unui întreg interval, nu doar a unei poziții ca în cazul funcției
+            "update".
+            <br> <br>
+            Vom formula aici o posibilă cerință: Pentru un interval [st, dr] și o valoarea val, să se adune la toate elementele din
+            interval valoarea val.
+            <br> <br>
+            Funcția va avea 6 parametri (nod, L<sub>nod</sub>, R<sub>nod</sub>, st, dr, val).
+            <br> <br>
+            Pentru a putea rezolva această problemă este necesară reținerea unui vector în plus, pe lângă cel care reține
+            răspunsurile din arborele de intervale. Vom nota acest vector cu "lazy".
+            <br> <br>
+            Observăm că dacă vrem să modificăm un interval prin funcția de update, în cel mai rău caz se vor parcurge de N ori câte
+            log<sub>2</sub>(N) noduri.
+            <br> <br>
+            Totuși, este nevoie să facem asta? Răspuns evident: NU.
+            <br> <br>
+            Asemănător funcției de query, vom parcurge arborele începând cu rădăcina și:
+            <br> <br>
+            1. dacă suntem la un nod al cărui interval de acoperire este inclus complet în [st, dr], adăugăm val la lazy[nod].
+            <br> <br>
+            2. altfel, vom continua parcurgerea în nodurile care au intersecția dintre intervalul de acoperire și [st, dr] nevidă.
+            <br> <br>
+            Apoi, mereu când coborâm în arbore prin intermediul altor apeluri, vom propaga informația de la nod, către fii, iar în
+            momentul propagării vom goli lazy[nod], nu înainte să adunăm informația în aint[nod].
+            Astfel, în cazul unei probleme care necesită lazy update, se vor modifica și funcțiile prezentate anterior.
+            <br> <br>
+            Având în vedere comportamentul similar cu funcția de query, complexitatea funcției "lazy update" va fi O(log(N)).</text>
+        </div>
+        <text1> </text1>
+        <p1>Cod</p1>
+        <div class="text-container">
+
+            <pre><code class="language-cpp">
+
+int get_value(int nod) ///functie care returneaza valoarea din nod
+{
+    return aint[nod]+lazy[nod];
+}
+
+void prp(int nod, int st, int dr)
+{
+    aint[nod]=get_value(nod);
+    if(st!=dr)
+    {
+        lazy[2*nod]+=lazy[nod];
+        lazy[2*nod+1]+=lazy[nod];
+    }
+    lazy[nod]=0;
+}
+
+void lazy_update(int nod, int st, int dr, int ust, int udr, int val)
+{
+    prp(nod, st, dr);
+    if(st>=ust && dr<=udr)
+    {
+        lazy[nod]+=val;
+        return;
+    }
+    int mij=(st+dr)/2;
+    if(ust<=mij) lazy_update(2*nod, st, mij, ust, udr, val);
+    if(udr>mij) lazy_update(2*nod+1, mij+1, dr, ust, udr, val);
+    aint[nod]=min(get_value(2*nod), get_value(2*nod+1));
+}
+
+int query(int nod, int st, int dr, int qst, int qdr)
+{
+    prp(nod, st, dr);
+    if(st>=qst && dr<=qdr) return aint[nod];
+    int mij=(st+dr)/2, ms=1e9, md=1e9;
+    if(qst<=mij) ms=query(2*nod, st, mij, qst, qdr);
+    if(qdr>mij) md=query(2*nod+1, mij+1, dr, qst, qdr);
+    return min(ms, md);
+}
+
+            </code></pre>
+        </div>
+        <text> </text>
+        <button class="linear-button1" onclick="redirectToPage5()">Build</button>
+        <button class="linear-button1" onclick="redirectToPage6()">Update (actualizare)</button>
+        <button class="linear-button1" onclick="redirectToPage7()">Query (interogare)</button>
+        <button class="linear-button1" onclick="redirectToPage8()">Lazy update</button>
+        <text> </text>
+        <button class="linear-button" onclick="redirectToPage1()">Elemente introductive</button>
+        <button class="linear-button" onclick="redirectToPage2()">Enunț (problema clasică)</button>
+        <button class="linear-button" onclick="redirectToPage3()">Definire</button>
+        <button class="linear-button" onclick="redirectToPage4()">Funcțiile specifice</button>
+
+        <script>
+            function redirectToPage1() {
+                window.location.href = './el_introd.html';
+            }
+            function redirectToPage2() {
+                window.location.href = './prb_cls.html';
+            }
+            function redirectToPage3() {
+                window.location.href = './defin.html';
+            }
+            function redirectToPage4() {
+                window.location.href = './func_spec.html';
+            }
+            function redirectToPage5() {
+                window.location.href = './build.html';
+            }
+            function redirectToPage6() {
+                window.location.href = './update.html';
+            }
+            function redirectToPage7() {
+                window.location.href = './query.html';
+            }
+            function redirectToPage8() {
+                window.location.href = './lazy_update.html';
+            }
+        </script>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <p>Lucrare realizată de Alin-Gabriel Răileanu și Andrei Boacă | Colegiul Național "Emil Racoviță" Iași</p>
+        </div>
+    </footer>
+</body>
+
+</html>

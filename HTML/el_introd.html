@@ -1,0 +1,95 @@
+<html>
+
+<head>
+    <title>Arbori de intervale - Elemente introductive</title>
+    <link rel="stylesheet" href="../CSS/el_introd.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <nav>
+        <div class="banner">
+            <div class="navbar">
+                <div class="container flex">
+                    <h1 class="logo"><img src="../PICTURES\logo.png" class="logo"></h1>
+                    <nav>
+                        <ul>
+                            <li><a href="./index.html">Acasă</a></li>
+                            <li><a href="./teorie.html">Teorie</a></li>
+                            <li><a href="./generator.html">Generator</a></li>
+                            <li><a href="./aplicatii.html">Aplicații</a></li>
+                            <li><a href="./probleme.html">Probleme</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="content">
+        <p>Elemente introductive</p>
+        <p1>Arbore</p1>
+        <div class="text-container">
+            <text>Un arbore este un graf neorientat conex aciclic.</text>
+        </div>
+        <text> </text>
+        <p1>Arbore cu rădăcină</p1>
+        <div class="text-container">
+            <text>Un arbore cu rădăcină este o structură de date constituită dintr-o mulţime
+            finită de elemente denumite noduri, mulţime care satisface una dintre următoarele
+            două condiţii: 
+            <br> <br>
+            1. este vidă;
+            <br> <br>
+            2. conţine un nod special denumit rădăcina arborelui, toate celelalte noduri fiind
+            partiţionate în n>=0 arbori cu rădăcină A <sub>1</sub> , A <sub>2</sub> , ..., A <sub>n</sub>.
+            <br> <br>
+        Arborii A <sub>1</sub> , A <sub>2</sub> , ..., A <sub>n</sub> sunt denumiţi subarbori ai nodului rădăcină, iar nodurile
+        conţinute în subarbori sunt considerate descendenţi ai nodului rădăcină. Rădăcinile
+        arborilor A <sub>1</sub> , A <sub>2</sub> , ..., A <sub>n</sub> sunt denumite descendenţi direcţi sau fii ai rădăcinii
+        arborelui. Rădăcina arborelui este considerată nod părinte (sau tată) al rădăcinilor
+        arborilor A <sub>1</sub> , A <sub>2</sub> , ..., A <sub>n</sub>.</text>
+        <img src="../PICTURES/arb_rad.png">
+        </div>
+        <text> </text>
+        <p1>Arbore binar</p1>
+        <div class="text-container">
+            <text>O clasă foarte importantă de arbori cu rădăcină o constituie arborii binari. Un
+            arbore binar este un arbore cu rădăcină în care fiecare nod are cel mult doi
+            subarbori, denumiţi subarborele stâng şi subarborele drept. Rădăcina subarborelui
+            stâng se numeşte fiu stâng, iar rădăcina subarborelui drept se numeşte fiu drept al
+            rădăcinii.</text>
+            <img src="../PICTURES/arb_bin.png">
+        </div>
+        <text> </text>
+        <p1>Interval</p1>
+        <div class="text-container">
+            <text>Un interval [L, R] (1 ≤ L ≤ R ≤ N) este mulțimea elementelor de pe pozițiile dintre L și R dintr-un șir.</text>
+        </div>
+        <text> </text>
+        <button class="linear-button" onclick="redirectToPage1()">Elemente introductive</button>
+        <button class="linear-button" onclick="redirectToPage2()">Enunț (problema clasică)</button>
+        <button class="linear-button" onclick="redirectToPage3()">Definire</button>
+        <button class="linear-button" onclick="redirectToPage4()">Funcțiile specifice</button>
+    </div>
+
+
+    <script>
+        function redirectToPage1() {
+            window.location.href = './el_introd.html';
+        }
+        function redirectToPage2() {
+            window.location.href = './prb_cls.html';
+        }
+        function redirectToPage3() {
+            window.location.href = './defin.html';
+        }
+        function redirectToPage4() {
+            window.location.href = './func_spec.html';
+        }
+    </script>
+    <footer>
+        <p>Lucrare realizată de Alin-Gabriel Răileanu și Andrei Boacă | Colegiul Național "Emil Racoviță" Iași</p>
+    </footer>
+</body>
+
+</html>

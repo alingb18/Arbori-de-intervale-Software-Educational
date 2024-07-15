@@ -1,0 +1,86 @@
+<html>
+
+<head>
+    <title>Arbori de intervale - Build</title>
+    <link rel="stylesheet" href="../CSS/build.css">
+</head>
+
+<body>
+    <nav>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <div class="banner">
+            <div class="navbar">
+                <div class="container flex">
+                    <h1 class="logo"><img src="../PICTURES\logo.png" class="logo"></h1>
+                    <nav>
+                        <ul>
+                            <li><a href="./index.html">Acasă</a></li>
+                            <li><a href="./teorie.html">Teorie</a></li>
+                            <li><a href="./generator.html">Generator</a></li>
+                            <li><a href="./aplicatii.html">Aplicații</a></li>
+                            <li><a href="./probleme.html">Probleme</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="content">
+        <p></p>
+        <p1>Funcția Query (Arbori de intervale persistenți)</p1>
+        <div class="text-container">
+            <text>Funcția Query nu prezintă nicio diferență față de arborii de intervale clasici.</text>
+            <text>Mai jos am prezentat o implementare pentru operația de sumă pe interval.</text>
+            <text>Complexitate: O(log(N))</text>
+        </div>
+
+        <p1>Cod</p1>
+        <div class="text-container">
+
+            <pre><code class="language-cpp">
+        
+int query(node* nod, int st, int dr, int qst, int qdr)
+{
+    if(st>=qst && dr&lt=qdr) return nod->val;
+    int mij=(st+dr)/2, sum=0;
+    if(qst&lt=mij) sum+=query(nod->l, st, mij, qst, qdr);
+    if(mij&ltqdr) sum+=query(nod->r, mij+1, dr, qst, qdr);
+    return sum;
+}
+        
+                    </code></pre>
+        </div>
+
+        <text> </text>
+        <button class="linear-button1" onclick="redirectToPage2()">Structură</button>
+        <button class="linear-button1" onclick="redirectToPage3()">Funcția Build</button>
+        <button class="linear-button1" onclick="redirectToPage4()">Funcția Update (actualizare)</button>
+        <button class="linear-button1" onclick="redirectToPage5()">Funcția Query (interogare)</button>
+        <button class="linear-button1" onclick="redirectToPage6()">Probleme explicate</button>
+
+        <script>
+            function redirectToPage2() {
+                window.location.href = './struct_pers.html';
+            }
+            function redirectToPage3() {
+                window.location.href = './build_pers.html';
+            }
+            function redirectToPage4() {
+                window.location.href = './update_pers.html';
+            }
+            function redirectToPage5() {
+                window.location.href = './query_pers.html';
+            }
+            function redirectToPage6() {
+                window.location.href = './prob_exp.html';
+            }
+        </script>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <p>Lucrare realizată de Alin-Gabriel Răileanu și Andrei Boacă | Colegiul Național "Emil Racoviță" Iași</p>
+        </div>
+    </footer>
+</body>
+
+</html>
