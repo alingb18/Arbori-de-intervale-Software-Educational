@@ -1,0 +1,230 @@
+* 
+{
+    margin: 0;
+    padding: 0;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.banner 
+{
+    width: 100%;
+    background-color:white;
+    background-size: cover;
+    background-position: center;
+}
+
+.flex 
+{   
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+ul 
+{
+    list-style-type: none;
+    text-align: center;
+}
+
+a 
+{
+    text-decoration: none;
+    color: #333
+}
+
+.navbar 
+{
+    background-color: rgba(5, 100, 140, 0.978);
+    color:white;
+    position: fixed;
+    align-items: center;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: auto;
+    font-size: 1.3vw;
+    font-weight: bold;
+}
+
+.navbar ul 
+{
+    display: flex;
+}
+
+.navbar a 
+{
+    color: white;
+    padding: 0 0.5vw;
+    margin: 0 0.5vw;
+    position: relative;
+}
+
+.navbar a:hover 
+{
+    border-bottom: 0.1vw white solid;
+    font-size: 1.2vw;
+    transition: 0.5s;
+}
+
+.logo 
+{
+    width: 5vw;
+    cursor: pointer;
+}
+
+pre 
+{
+    background-color: #f5f5f5;
+    padding: 1.2vw;
+    border-radius: 0.3vw;
+    overflow-x: auto;
+}
+
+code 
+{
+    font-family: Consolas, monospace;
+    font-size: 0.9vw;
+}
+
+.flex-container 
+{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.content
+{
+    margin-top: 14%;
+    padding-bottom: 5%;
+    margin-left:auto;
+    margin-right:auto;
+    width: 85%;
+    position: center;
+    justify-content: center;
+    text-align: center;
+    color: rgba(5, 100, 140, 0.978);
+    font-size: 3.6vw;
+}
+
+.content text
+{
+    text-align: center;
+    font-size: 1.7vw;
+    margin-bottom: 3%;
+    display: block;
+}
+
+.content p
+{
+    text-align: center;
+    font-weight: bold;
+    font-size: 3.2vw;
+    margin-bottom: 3%;
+    display: block;
+}
+
+.content p1
+{
+    text-align: center;
+    font-weight: bold;
+    font-size: 2.5vw;
+    margin-top: 3%;
+    margin-bottom: 2%;
+    display: block;
+}
+
+body 
+{
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color:white;
+    color: #333;
+}
+
+.container 
+{
+    max-width: 45%;
+    margin: 0 auto;
+}
+
+.text-container 
+{
+    display: inline-block;
+    background-color: rgb(193, 229, 250);
+    padding: 0.7%;
+    border-radius: 0.3vw;
+    box-shadow: 0 0 0.5vw rgba(0, 0, 0, 0.1);
+}
+
+
+footer {
+    background-color: rgba(5, 100, 140, 0.978);
+    color: #fcfcfc;
+    text-align: center;
+    padding: 0.5%;
+    bottom: 0;
+    position: fixed;
+    width: 99%;
+}
+
+footer p
+{
+    text-align: center;
+    font-size: 1vw;
+    display: block;
+}
+
+.stanga
+{
+    display: inline-block;
+    padding: 0.6vw;
+    border-radius: 0.3vw;
+    margin-right: 6vw;
+}
+
+.dreapta
+{
+    display: right;
+    display: inline-block;
+    padding: 0.6vw;
+    border-radius: 0.3vw;
+}
+.middle
+{
+    display: right;
+    display: inline-block;
+    padding: 0.6vw;
+    border-radius: 0.3vw;
+    margin-right: 6vw;
+}
+
+.linear-button {
+  padding: 0.6vw 1.2vw;
+  font-size: 1.2vw;
+  background-color: rgba(5, 100, 140, 0.978);
+  color:white;
+  border: none;
+  border-radius: 0.3vw;
+  margin-bottom: 0.3vw;
+  cursor: pointer;
+  transition: background-color 0.8s;
+}
+
+.linear-button1 {
+  padding: 0.6vw 1.2vw;
+  font-size: 1.2vw;
+  background-color: rgba(107, 207, 250, 0.978);
+  color:white;
+  border: none;
+  border-radius: 0.3vw;
+  cursor: pointer;
+  transition: background-color 0.8s;
+}
+
+.linear-button:hover {
+  background-color:rgba(5, 100, 140, 0.978);
+}
